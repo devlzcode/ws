@@ -20,10 +20,7 @@ interface WebSocketProviderProps {
   url: string;
 }
 
-export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
-  children,
-  url,
-}) => {
+export function WebSocketProvider({ children, url }: WebSocketProviderProps) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastMessage, setLastMessage] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
@@ -84,12 +81,12 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
       {children}
     </WebSocketContext.Provider>
   );
-};
+}
 
-export const useWebSocket = () => {
+export function useWebSocket() {
   const context = useContext(WebSocketContext);
   if (!context) {
     throw new Error("useWebSocket must be used within a WebSocketProvider");
   }
   return context;
-};
+}
